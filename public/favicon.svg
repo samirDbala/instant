@@ -1,0 +1,115 @@
+<svg
+  width="512"
+  height="512"
+  viewBox="0 0 512 512"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="photo" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFD6A5"/>
+      <stop offset="48%" stop-color="#FF8FA3"/>
+      <stop offset="100%" stop-color="#6C63FF"/>
+    </linearGradient>
+
+    <linearGradient id="card" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F4F2EF"/>
+    </linearGradient>
+
+    <linearGradient id="mountain" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#40345F"/>
+      <stop offset="100%" stop-color="#17152A"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow
+        dx="0"
+        dy="14"
+        stdDeviation="18"
+        flood-opacity="0.16"
+      />
+    </filter>
+  </defs>
+
+  <!-- Card -->
+  <rect
+    x="48"
+    y="40"
+    width="416"
+    height="432"
+    rx="30"
+    fill="url(#card)"
+    filter="url(#shadow)"
+  />
+
+  <!-- Photo -->
+  <rect
+    x="80"
+    y="72"
+    width="352"
+    height="304"
+    rx="12"
+    fill="url(#photo)"
+  />
+
+  <!-- Sun -->
+  <circle
+    cx="346"
+    cy="150"
+    r="42"
+    fill="#FFE8B6"
+    opacity="0.95"
+  />
+
+  <!-- Distant mountain -->
+  <path
+    d="M80 292
+       L168 214
+       L224 262
+       L296 184
+       L432 294
+       V376
+       H80
+       Z"
+    fill="#594A7C"
+    opacity="0.7"
+  />
+
+  <!-- Foreground mountain -->
+  <path
+    d="M80 326
+       L176 244
+       L238 296
+       L318 222
+       L432 316
+       V376
+       H80
+       Z"
+    fill="url(#mountain)"
+  />
+
+  <!-- Small highlight -->
+  <path
+    d="M176 244 L238 296 L220 281 L202 288 Z"
+    fill="#EEE9FF"
+    opacity="0.8"
+  />
+
+  <!-- Caption -->
+  <rect
+    x="190"
+    y="418"
+    width="132"
+    height="13"
+    rx="6.5"
+    fill="#CFCAC3"
+  />
+
+  <!-- Tiny accent -->
+  <circle
+    cx="176"
+    cy="424.5"
+    r="6.5"
+    fill="#CFCAC3"
+  />
+</svg>
