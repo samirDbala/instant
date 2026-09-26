@@ -47,6 +47,9 @@ function Home() {
     const reader = new FileReader();
 
     reader.onload = () => {
+      sessionStorage.removeItem("instantEditor");
+      event.target.value = "";
+
       navigate("/editor", {
         state: {
           uploadedImage: reader.result,

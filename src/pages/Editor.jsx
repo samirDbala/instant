@@ -19,7 +19,7 @@ function Editor() {
   }
 
   const [image, setImage] = useState(
-    savedEditor?.image || location.state?.uploadedImage || null,
+    location.state?.uploadedImage || savedEditor?.image || null,
   );
 
   const [note, setNote] = useState(
@@ -31,6 +31,8 @@ function Editor() {
   const [font, setFont] = useState(savedEditor?.font || "Patrick Hand");
 
   const [fontOpen, setFontOpen] = useState(false);
+
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -158,6 +160,7 @@ function Editor() {
       setImage(reader.result);
       setNote("out in the darkness");
       setZoom(1);
+      setFont("Patrick Hand");
       setImagePosition({
         x: 50,
         y: 50,
@@ -192,7 +195,9 @@ function Editor() {
 
   // Download
   const handleDownload = async () => {
-    if (!printRef.current) return;
+    if (isDownloading || !printRef.current) return;
+
+    setIsDownloading(true);
 
     try {
       const canvas = await html2canvas(printRef.current, {
@@ -203,22 +208,27 @@ function Editor() {
       });
 
       canvas.toBlob((blob) => {
-        if (!blob) return;
+        if (!blob) {
+          setIsDownloading(false);
+          return;
+        }
 
         const url = URL.createObjectURL(blob);
-
         const link = document.createElement("a");
+
         link.href = url;
-        link.download = "instant-print.png";
+        link.download = `instant-${Date.now()}.png`;
 
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
 
         URL.revokeObjectURL(url);
+        setIsDownloading(false);
       }, "image/png");
     } catch (error) {
       console.error("Could not download print:", error);
+      setIsDownloading(false);
     }
   };
 
@@ -349,7 +359,9 @@ function Editor() {
                       }
                       onClick={() => {
                         setFont(fontOption);
+                        setFontOpen(false);
                       }}
+                      style={{ fontFamily: `"${fontOption}", cursive` }}
                     >
                       {fontOption}
                     </button>
@@ -393,9 +405,10 @@ function Editor() {
               type="button"
               className="editor-download-button"
               onClick={handleDownload}
+              disabled={isDownloading}
             >
               <Download size={17} strokeWidth={1.8} />
-              DOWNLOAD PRINT
+              {isDownloading ? "DOWNLOADING..." : "DOWNLOAD PRINT"}
             </button>
 
             <button
